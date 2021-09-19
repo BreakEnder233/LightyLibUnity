@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LightyLibUnity.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,6 @@ using UnityEngine;
 
 namespace LightyLibUnity.Basic
 {
-
     /// <summary>
     /// Used for all singleton MonoBehavior.
     /// </summary>
@@ -32,7 +32,7 @@ namespace LightyLibUnity.Basic
                 }
                 return _instance;
             }
-            private set
+            protected set
             {
                 _instance = value;
             }
@@ -40,7 +40,7 @@ namespace LightyLibUnity.Basic
         /// <summary>
         /// Call in awake or earlier.
         /// </summary>
-        protected void Init()
+        protected void SetupSingleton()
         {
             if (_instance == null) _instance = (T)this;
             else

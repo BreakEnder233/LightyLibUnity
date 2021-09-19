@@ -33,7 +33,7 @@ namespace LightyLibUnity.Basic
                 }
                 return _instance;
             }
-            private set
+            protected set
             {
                 _instance = value;
             }
@@ -41,7 +41,7 @@ namespace LightyLibUnity.Basic
         /// <summary>
         /// Call in awake or earlier.
         /// </summary>
-        protected void Init(bool DontDestroyOnLoad = false)
+        protected void SetupSingleton(bool DontDestroyOnLoad = false)
         {
             if (_instance == null) _instance = (T)this;
             else
