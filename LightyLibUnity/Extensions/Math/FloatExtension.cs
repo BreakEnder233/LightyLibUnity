@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LightyLibUnity.Extensions
+namespace LightyLibUnity.Extensions.Math
 {
     /// <summary>
     /// Extension class for float
