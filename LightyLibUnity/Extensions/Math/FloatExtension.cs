@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace LightyLibUnity.Extensions.Math
 {
@@ -30,6 +31,21 @@ namespace LightyLibUnity.Extensions.Math
                 if (frac >= 0.5f) return integer;
                 else return integer - 1;
             }
+        }
+
+        /// <summary>
+        /// Return the float * Time.deltaTime
+        /// </summary>
+        public static float PerFrame(this float value)
+        {
+            return value * Time.deltaTime;
+        }
+        /// <summary>
+        /// Return the float * Time.fixedDeltaTime
+        /// </summary>
+        public static float PerFixedFrame(this float value)
+        {
+            return value * Time.fixedDeltaTime;
         }
     }
 }
