@@ -10,6 +10,7 @@ namespace LightyLibUnity.Extensions.Container
     {
         public static T2 GetIfExist<T1,T2>(this Dictionary<T1,T2> dictionary, T1 key)
         {
+            if (key == null) return default;
             if (dictionary.ContainsKey(key)) return dictionary[key];
             return default;
         }
