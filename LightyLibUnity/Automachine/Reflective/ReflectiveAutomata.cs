@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using LightyLibUnity.Extensions.Container;
 
-namespace LightyLibUnity.Animation.Reflective
+namespace LightyLibUnity.Automachine.Reflective
 {
-    public abstract class ReflectiveAutomata<T>
+    public abstract class ReflectiveAutomata
     {
         public delegate void AutomataMethod();
         public delegate string AutomataTransfer();

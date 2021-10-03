@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LightyLibUnity.Animation.Reflective
+namespace LightyLibUnity.Automachine.Reflective
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public abstract class RefAutomataAttribute : Attribute
