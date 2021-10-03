@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LightyLibUnity.Automachine
+namespace LightyLibUnity.Automachine.NonReflective
 {
     public class State<T>
     {
