@@ -13,8 +13,10 @@ namespace LightyLibUnity.Automachine.Reflective
         public delegate void AutomataMethod();
         public delegate string AutomataTransfer();
 
-        private string currentState;
+        public string CurrentState { get; protected set; }
         public List<string> states;
+
+        public event AutomataMethod allStateUpdate = ()=> { };
 
         private Dictionary<string, AutomataMethod> updateMethods = new Dictionary<string, AutomataMethod>();
 
@@ -32,7 +34,7 @@ namespace LightyLibUnity.Automachine.Reflective
             var type = GetType();
             var methods = type.GetMethods();
 
-            this.currentState = currentState;
+            this.CurrentState = currentState;
 
             updateMethods.Clear();
             entryMethods.Clear();
@@ -76,19 +78,20 @@ namespace LightyLibUnity.Automachine.Reflective
 
         public void JumpToState(string targetState)
         {
-            exitMethods.GetIfExist(currentState)?.Invoke();
-            currentState = targetState;
+            exitMethods.GetIfExist(CurrentState)?.Invoke();
+            CurrentState = targetState;
             entryMethods.GetIfExist(targetState)?.Invoke();
         }
 
         public void Update()
         {
-            updateMethods.GetIfExist(currentState)?.Invoke();
-            var transferMethod = transferMethods.GetIfExist(currentState);
+            allStateUpdate?.Invoke();
+            updateMethods.GetIfExist(CurrentState)?.Invoke();
+            var transferMethod = transferMethods.GetIfExist(CurrentState);
             if(transferMethod != null)
             {
                 var nextState = transferMethod.Invoke();
-                if (nextState != currentState)
+                if (nextState != CurrentState)
                 {
                     JumpToState(nextState);
                 }
