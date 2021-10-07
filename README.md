@@ -22,3 +22,68 @@ A difference between reflective and non-reflective automachine is that, in the r
 The reason is that all transfer conditions and transfer actions are included in the transfer function. As it determines whether to transfer between states, it has to be called before exit function.
 
 I will not fix this feature until I found it so crap that even I can't stand. So good luck programming :smile:
+
+```C#
+public class AIAutomata : ReflectiveAutomata
+{
+    public Entity entity;
+    
+    public const string IDLE = nameof(IDLE);
+    public const string SEARCH = nameof(SEARCH);
+
+    private const float IDLE_RANGE = 8F;
+
+    public AIAutomata(Entity entity) : base(IDLE)
+    {
+        this.entity = entity;
+    }
+    
+    [RefAutomataUpdate(IDLE)]
+    public void IdleUpdate()
+    {
+        //Do nothing
+    }
+    
+    [RefAutomataExit(IDLE)]
+    public string IdleExit()
+    {
+        Debug.Log("I'm no longer idling");
+    }
+
+    [RefAutomataTransfer(IDLE)]
+    public string IdleTransfer()
+    {
+        if(Vector3.Distance(player.position, entity.position) < IDLE_RANGE)
+        {
+            return SEARCH;
+        }
+        return IDLE;
+    }
+
+	[RefAutomataEntry(SEARCH)]
+    public string IdleEntry()
+    {
+        Debug.Log("Attack mode on!");
+    }
+    
+    [RefAutomataUpdate(SEARCH)]
+    public void SearchUpdate()
+    {
+        //Attack player!
+        var direction = player.position - entity.position;
+        entity.Walk(direction);
+    }
+
+    private const float SEARCH_RANGE = 16F;
+    [RefAutomataTransfer(SEARCH)]
+    public string SearchTransfer()
+    {
+        if(Vector3.Distance(player.position, entity.position) > SEARCH_RANGE)
+        {
+            return IDLE;
+        }
+        return SEARCH;
+    }
+}
+```
+
